@@ -1,0 +1,10 @@
+# Course Scheduling — CS 57200 Project Milestone 2
+# External dependencies:
+#   matplotlib==3.7.0  (for generating figures)
+#
+# Standard library modules used:
+#   - time, copy, random, json, os, sys
+#   - dataclasses, typing, collections, statistics
+#
+# To verify your Python version:
+#   python --version   (must be 3.7 or higher)
