@@ -586,11 +586,11 @@ def experiment3(test_cases, generate_figures=True):
 # Experiment 4 — Hard Problem Deep Dive (Demonstrates Enhancement Advantage)
 # ---------------------------------------------------------------------------
 
-def experiment4_hard_problem_demo():
-    """
+"""def experiment4_hard_problem_demo():
+    
     Specialized experiment to clearly show Enhancement 1 beating Baseline.
     Runs multiple trials on the hardest problems and compares success rates.
-    """
+    
     sep()
     print("  EXPERIMENT 4 -- Hard Problem Deep Dive")
     print("  Purpose: Demonstrate Enhancement 1's advantage on difficult")
@@ -674,7 +674,7 @@ def experiment4_hard_problem_demo():
     print(f"    This demonstrates the value of the restart enhancement.")
     
     return results
-
+"""
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
