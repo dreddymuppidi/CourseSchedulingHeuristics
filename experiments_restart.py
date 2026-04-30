@@ -708,10 +708,6 @@ if __name__ == "__main__":
     r3 = experiment3(test_cases, generate_figures=True)
     print()
     
-    # NEW: Run hard problem deep dive
-    r4 = experiment4_hard_problem_demo()
-    print()
-
     # Generate combined summary figure
     if MATPLOTLIB_AVAILABLE and r1 and r2 and r3:
         print()
@@ -724,6 +720,5 @@ if __name__ == "__main__":
     print("  Exp 1 -> Bar chart : Backtracks & time -- Baseline vs Enhancement 1")
     print("  Exp 2 -> Line chart: Problem size vs runtime (3 points per algorithm)")
     print("  Exp 3 -> Bar chart : Diversity % per seed vs 0% for baseline")
-    print("  Exp 4 -> Table    : Success rates on hard problems (shows Enhancement advantage)")
     print(f"  Figures saved to: {os.path.abspath(FIGURES_DIR)}/")
     sep()
