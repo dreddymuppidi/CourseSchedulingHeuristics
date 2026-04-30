@@ -23,17 +23,57 @@ Per M2 rubric: stochastic algorithms averaged over multiple runs.
 """
 import sys
 import statistics
+import os
+
+try:
+    import matplotlib.pyplot as plt
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
 
 sys.stdout.reconfigure(encoding="utf-8")
 
 from data_loader import get_all_test_cases, count_solution_differences
 from scheduler import CSPScheduler
 from enhancement1_restarts import RestartSolver, SingleRunCSP
+FIGURE_DIR = "figures"
+
 from enhancement2_gls import (
     GuidedLocalSearch, compute_penalty, INITIAL_WEIGHTS
 )
 from constraint_checker import ConstraintChecker
 
+def save_gls_figures(results, history):
+    os.makedirs("figures", exist_ok=True)
+
+    # ---------- Graph 1: convergence history ----------
+    plt.figure(figsize=(10, 5))
+    plt.plot(range(len(history)), history)
+    plt.xlabel("Iteration")
+    plt.ylabel("Penalty / Objective Score")
+    plt.title("GLS Convergence Curve")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("figures/gls_convergence_curve.png")
+    plt.close()
+
+    # ---------- Graph 2: results comparison ----------
+    plt.figure(figsize=(10, 5))
+
+    x = range(len(results))
+    y = [r["gls_fs"] for r in results]
+
+    plt.bar(x, y)
+
+    plt.xlabel("Test Cases")
+    plt.ylabel("Final GLS Score (F(S))")
+    plt.title("GLS Results Comparison")
+
+    plt.xticks(x, [r["name"] for r in results], rotation=20)
+
+    plt.tight_layout()
+    plt.savefig("figures/gls_results_comparison.png")
+    plt.close()
 
 # ---------------------------------------------------------------------------
 # Runner helpers
@@ -356,6 +396,9 @@ def experiment4(test_cases):
     history = gls_det.stats["penalty_history"]
     print(f"  Iter: {list(range(1, len(history)+1))}")
     print(f"  F(S): {history}")
+
+    save_gls_figures(results, history)
+    print(f"\n  Saved GLS graphs in {FIGURE_DIR}/")
 
     print(f"\n  Summary:")
     for r in results:
