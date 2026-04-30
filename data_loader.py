@@ -187,6 +187,53 @@ def generate_test_case_hard() -> dict:
     }
 
 
+
+def generate_test_case_hard_100() -> dict:
+    """
+    TC4: Hard 100-course benchmark.
+    Designed to be feasible but highly constrained so that baseline,
+    restart-based search, and GLS show measurable differences.
+    """
+    rng = random.Random(100)
+    nc, nr, nt, ni = 100, 8, 20, 10
+    courses = [f"C{i:03d}" for i in range(1, nc+1)]
+    rooms = {f"R{i}": cap for i, cap in enumerate([30,40,50,60,80,100,120,150], start=1)}
+    slots = [f"D{d}_T{t}" for d in range(1, 6) for t in range(1, 5)]  # 20 slots
+
+    instructors = {}
+    chunk = nc // ni
+    for i in range(ni):
+        start = i * chunk
+        end = nc if i == ni - 1 else (i + 1) * chunk
+        primary = courses[start:end]
+        overlap_start = max(0, start - 2)
+        overlap_end = min(nc, end + 2)
+        overlap = courses[overlap_start:overlap_end]
+        instructors[f"P{i+1}"] = {
+            "qualified_courses": sorted(set(primary + overlap)),
+            "max_slots": 10
+        }
+
+    enrollments = {c: rng.choice([25, 30, 35, 40, 45, 60, 75, 90]) for c in courses}
+
+    curricula = []
+    for i in range(0, nc, 5):
+        group = set(courses[i:i+5])
+        if i + 7 < nc:
+            group.update(courses[i+5:i+7])  # intentional overlap
+        curricula.append(group)
+
+    return {
+        "name": "Test Case 4 - Hard 100",
+        "courses": courses,
+        "rooms": rooms,
+        "timeslots": slots,
+        "instructors": instructors,
+        "enrollments": enrollments,
+        "curricula": curricula,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Utilities
 # ---------------------------------------------------------------------------
@@ -204,6 +251,7 @@ def get_all_test_cases() -> list:
         generate_test_case_small(),
         generate_test_case_medium(),
         generate_test_case_hard(),
+        generate_test_case_hard_100(),
     ]
 
 
