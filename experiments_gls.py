@@ -54,7 +54,7 @@ def save_gls_figures(results, history):
     plt.title("GLS Convergence Curve")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig("figures/gls_convergence_curve.png")
+    plt.savefig("./figures/gls_convergence_curve.png")
     plt.close()
 
     # ---------- Graph 2: results comparison ----------
@@ -72,7 +72,7 @@ def save_gls_figures(results, history):
     plt.xticks(x, [r["name"] for r in results], rotation=20)
 
     plt.tight_layout()
-    plt.savefig("figures/gls_results_comparison.png")
+    plt.savefig("./figures/gls_results_comparison.png")
     plt.close()
 
 # ---------------------------------------------------------------------------
