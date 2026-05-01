@@ -246,7 +246,7 @@ def count_solution_differences(sol_a, sol_b, courses) -> int:
 
 
 def get_all_test_cases() -> list:
-    """Return all 3 test cases for M2 experimental evaluation."""
+    """Return all 4 test cases for M2 experimental evaluation."""
     return [
         generate_test_case_small(),
         generate_test_case_medium(),
